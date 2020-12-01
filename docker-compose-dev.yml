@@ -1,0 +1,12 @@
+version: '2.1'
+
+services:
+    api-main:
+      container_name: "api-main"
+      image: alpine:3.10
+      ports:
+        - "3030:80"
+      volumes:
+        - "./:/tmp/api-main"
+      command: "sh ./tmp/api-main/init.sh"
+      privileged: true
