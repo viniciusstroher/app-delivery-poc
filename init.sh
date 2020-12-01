@@ -3,4 +3,4 @@ apk add --update nodejs npm
 
 cd /tmp/api-main
 npm i
-node index.js
+nodemon --watch . index.js
