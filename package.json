@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "jest --watchAll --coverage=true --detectOpenHandles",
+    "docker-setup-container-force": "docker-compose -f docker-compose-dev.yml up --detach --force",
     "docker-setup-container": "docker-compose -f docker-compose-dev.yml up --detach",
     "docker-start-container": "docker-compose -f docker-compose-dev.yml start && docker logs api-main --follow --tail 100",
     "docker-restart-container": "docker-compose -f docker-compose-dev.yml restart && docker logs api-main --follow --tail 100"
