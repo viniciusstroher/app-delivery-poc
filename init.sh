@@ -2,5 +2,6 @@ echo "INSTALLING DEPENDENCIES"
 apk add --update nodejs npm
 
 cd /tmp/api-main
+npm i -g nodemon
 npm i
-nodemon --watch . index.js
+nodemon --inspect --watch . index.js
