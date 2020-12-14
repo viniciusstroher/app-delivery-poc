@@ -2,8 +2,8 @@ import { IDomainEvent } from "./IDomainEvent";
 
 export interface IProduct{
   sku:number;
-  name: string[];
+  name: string;
   price: number;
-  
+
 
 }
