@@ -4,15 +4,23 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "docker exec -it api-main sh -c \"cd /tmp/api-main && ls && jest --watchAll --coverage=true --detectOpenHandles\"",
+    "test": "docker exec -it api-main sh -c \"cd /tmp/api-main && jest --watchAll --coverage=true --detectOpenHandles\"",
     "docker-setup-container-force": "docker-compose -f docker-compose-dev.yml up --detach --force",
     "docker-setup-container": "docker-compose -f docker-compose-dev.yml up --detach",
     "docker-start-container": "docker-compose -f docker-compose-dev.yml start && docker logs api-main --follow --tail 100",
-    "docker-restart-container": "docker-compose -f docker-compose-dev.yml restart && docker logs api-main --follow --tail 100"
+    "docker-restart-container": "docker-compose -f docker-compose-dev.yml restart && docker logs api-main --follow --tail 100",
+    "docker-shell": "docker exec -it api-main sh"
   },
   "author": "Vinicius Stroher",
   "license": "ISC",
   "devDependencies": {
-    "nodemon": "^2.0.6"
+    "@types/jest": "^25.1.2",
+    "nodemon": "^2.0.6",
+    "ts-jest": "^25.2.0",
+    "tsc": "^1.20150623.0",
+    "typescript": "^4.1.3"
+  },
+  "dependencies": {
+    "@babel/preset-typescript": "^7.12.7"
   }
 }
