@@ -1,9 +1,7 @@
 import { IDomainEvent } from "./IDomainEvent";
 
 export interface IProduct{
-  sku:number;
+  sku: string;
   name: string;
   price: number;
-
-
 }

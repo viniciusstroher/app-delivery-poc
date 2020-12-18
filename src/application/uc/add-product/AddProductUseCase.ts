@@ -31,7 +31,7 @@ export class AddProductUseCase implements IUseCase{
         
         //do logic
         this.productRepository.save()
-
+        //repo to mapper
         const returnMock:IResponse = {data: {name: "Produto 1", price: 1.0, sky: "uuuu-uuuu-uuu-uuuu"}};
         return returnMock;
     }
