@@ -1,4 +1,4 @@
-import { IDomainEvent } from "./IDomainEvent";
+import { IDomainEvent } from "../IDomainEvent";
 
 export interface IEntity{
   id:number;

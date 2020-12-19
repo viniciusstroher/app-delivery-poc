@@ -1,5 +1,5 @@
-import { IDomainEvent } from "../domain/interfaces/IDomainEvent";
-import { IEntity } from "../domain/interfaces/IEntity";
+import { IDomainEvent } from "../interfaces/IDomainEvent";
+import { IEntity } from "../interfaces/entities/IEntity";
 
 export class Entity implements Entity{
     id:number = 0;
@@ -21,13 +21,19 @@ export class Entity implements Entity{
     }
 
     addEvent(evt: IDomainEvent):void{
+        if(!evt){
+            throw new EmptyDomainEventError;
+        }
         this.domainEvents.push(evt);
     }
 
     removeEvent(index: number): IDomainEvent{
         const removedEvent = this.domainEvents.splice(index, 1);
         if(removedEvent.length == 0)
-            throw new Error('Event index not found.');
+            throw new DomainEventNotFoundError;
         return removedEvent[0];
     }
 }
+
+export class DomainEventNotFoundError extends Error {}
+export class EmptyDomainEventError extends Error {}

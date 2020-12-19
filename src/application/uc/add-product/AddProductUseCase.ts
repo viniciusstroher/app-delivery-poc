@@ -29,6 +29,7 @@ export class AddProductUseCase implements IUseCase{
             throw new Error("Produto deve conter nome")
         }
         
+        // const productEntityToProductDto: = chamarMapper+-
         //do logic
         this.productRepository.save()
         //repo to mapper

@@ -1,4 +1,4 @@
-import { Entity } from "../../src/entities/Entity";
+import { Entity } from "../../src/domain/entities/Entity";
 
 class DummyEntityMock extends Entity{
     name:string;
