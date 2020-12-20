@@ -1,12 +1,10 @@
-import {  ValueObject } from "./ValueObject";
+import { IdValueObject } from "@domain/value-objects/IdValueObject";
 
 // export default Product implements
-export class ProductId extends ValueObject{
-    id: string = "";
+export class ProductId extends IdValueObject{
 
     private constructor(id:string){
-        super();
-        this.id = id;
+        super(id);
     }
 
     getId(){

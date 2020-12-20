@@ -31,5 +31,6 @@ export class ValueObject implements IValueObject{
 
 }
 
+export class GetIdParentError extends Error {}
 export class DomainEventNotFoundError extends Error {}
 export class EmptyDomainEventError extends Error {}
