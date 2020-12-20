@@ -7,10 +7,6 @@ export class ProductId extends IdValueObject{
         super(id);
     }
 
-    getId(){
-        return this.id;
-    }
-
     static create(uuid:string){
         //usar uuid
         if(!uuid){
