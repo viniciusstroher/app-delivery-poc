@@ -2,7 +2,7 @@ import { UuidGenerator } from "@infra/utils/UuidGenerator"
 import { ProductId } from "@domain/value-objects/ProductId"
 
 describe('Testing ProductId Vo Class', () => {
-    test('should return Uuid true', () => {
+    test('should create Uuid if productId is not null', () => {
         const uuidGenerator = new UuidGenerator();
         const uuid:string = uuidGenerator.generate();
         
@@ -10,7 +10,7 @@ describe('Testing ProductId Vo Class', () => {
         expect(productIdVo.getId()).toBe(uuid);
     });
 
-    test('should throw exception if productid is null', () => {
+    test('should throw exception if productId is null', () => {
         expect(() => ProductId.create("")).toThrow();
     });
 });
