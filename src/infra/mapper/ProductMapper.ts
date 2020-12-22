@@ -1,7 +1,8 @@
 import { Product } from "@domain/entities/Product";
 import { ProductId } from "@domain/value-objects/ProductId";
+import { UuidGenerator } from "@infra/utils/UuidGenerator";
 
-class ProductMapper {
+export class ProductMapper {
   public static toDomain (raw: any): Product {
     const {id, sku, name, description, price } = raw;
     return new Product(ProductId.create(id), sku,  name, description, price);
