@@ -47,9 +47,15 @@ export class AddProductUseCase implements IUseCase{
         const price:number = 3.59
         const newProduct:Product = new Product(productIdVo, sku, name, description, price)
         
+        //entity -> mapper -> repo
         this.productRepository.save(newProduct)
-        //repo to mapper
-        const returnMock:IResponse = {data: {name: "Produto 1", price: 1.0, sky: "uuuu-uuuu-uuu-uuuu"}};
-        return returnMock;
+        
+        const responseUc:IResponse = {data:{
+            name,
+            price,
+            sku
+        }};
+
+        return responseUc;
     }
 }
