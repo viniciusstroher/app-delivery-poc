@@ -1,12 +1,8 @@
-import { IIdValueObject } from "@domain/interfaces/value-objects/IIdValueObject";
 import { ProductId } from "@domain/value-objects/ProductId";
 import { IProductRepository } from "@infra/interfaces/IProductRepository";
 import { IRequest, IResponse, IUseCase } from "@application/interfaces/IUseCase";
 import { UuidGenerator } from "@infra/utils/UuidGenerator";
 import { Product } from "@domain/entities/Product";
-import { IEntity } from "@domain/interfaces/entities/IEntity";
-import { IProduct } from "@domain/interfaces/entities/IProduct";
-
 export interface AddProductUseCaseRequest extends IRequest{
     data:{
         name: string,
