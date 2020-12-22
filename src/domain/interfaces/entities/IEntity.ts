@@ -1,7 +1,8 @@
 import { IDomainEvent } from "../IDomainEvent";
+import { IIdValueObject } from "../value-objects/IIdValueObject";
 
 export interface IEntity{
-  id:number;
+  id:IIdValueObject;
   domainEvents: IDomainEvent[];
 
   equals(compareEntity: IEntity):boolean;
