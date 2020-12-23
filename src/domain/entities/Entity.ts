@@ -3,7 +3,7 @@ import { IEntity } from "../interfaces/entities/IEntity";
 import { IIdValueObject } from "@domain/interfaces/value-objects/IIdValueObject";
 
 export class Entity implements Entity{
-    id:IIdValueObject | null;
+    id: IIdValueObject | null;
     domainEvents: IDomainEvent[] = [];
 
     constructor(){
@@ -12,14 +12,10 @@ export class Entity implements Entity{
     }
 
     equals(compareEntity: IEntity): boolean{
-        if(compareEntity.id === this.id){
+        if(compareEntity?.id?.getId() === this.id?.getId()){
             return true;
         }
         return false;
-    }
-
-    isTranscient(): boolean{
-        return this.id != null;
     }
 
     addEvent(evt: IDomainEvent):void{

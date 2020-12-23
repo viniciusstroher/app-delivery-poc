@@ -1,25 +1,39 @@
-import { Entity } from "../../src/domain/entities/Entity";
+import { IIdValueObject } from "@domain/interfaces/value-objects/IIdValueObject";
+import { Entity } from "@domain/entities/Entity";
+import { UuidGenerator } from "@infra/utils/UuidGenerator";
+import { ProductId } from "@domain/value-objects/ProductId";
 
 class DummyEntityMock extends Entity{
     name:string;
 
-    constructor(id:number, name:string){
+    constructor(id:IIdValueObject, name:string){
         super();
         this.id = id;
         this.name = name;
     }
 }
 
+const uuidGenereted = () => {
+    const uuidGenerator = new UuidGenerator();
+    return uuidGenerator.generate();
+}
+
+const uuid1:string = uuidGenereted();
+const uuid2:string = uuidGenereted();
+
 describe('Testing Entity Class', () => {
     test('Diferents entities should return false', () => {
-        const de1 = new DummyEntityMock(1, "Vinicius");
-        const de2 = new DummyEntityMock(2, "Vini");
+        const productIdVo1:ProductId = ProductId.create(uuid1);
+        const productIdVo2:ProductId = ProductId.create(uuid2); 
+        const de1 = new DummyEntityMock(productIdVo1, "Vinicius");
+        const de2 = new DummyEntityMock(productIdVo2, "Vini");
         expect(!de1.equals(de2)).toBeTruthy();
     });
 
     test('Equals entities should return true', () => {
-        const de1 = new DummyEntityMock(1, "Vinicius");
-        const de2 = new DummyEntityMock(1, "Vini");
+        const productIdVo:ProductId = ProductId.create(uuid1); 
+        const de1 = new DummyEntityMock(productIdVo, "Vinicius");
+        const de2 = new DummyEntityMock(productIdVo, "Vini");
         expect(de1.equals(de2)).toBeTruthy();
     });
 });

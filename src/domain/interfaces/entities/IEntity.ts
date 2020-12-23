@@ -6,7 +6,6 @@ export interface IEntity{
   domainEvents: IDomainEvent[];
 
   equals(compareEntity: IEntity):boolean;
-  isTranscient(): boolean; //ja foi persistido?
   addEvent(evt: IDomainEvent):void;
   removeEvent(index: number):IDomainEvent;
 }

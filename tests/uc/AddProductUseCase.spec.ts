@@ -9,7 +9,7 @@ const uuidGenerator = new UuidGenerator();
 const uuid:string = uuidGenerator.generate();
 
 describe('Testing Add Product usecase Class', () => {
-    test('should create instantiate Product entity', () => {
+    test('should create instantiate Product entity', async () => {
         const request:ProductDTO = {
             id: uuid,
             sku: "123910391",
@@ -23,6 +23,10 @@ describe('Testing Add Product usecase Class', () => {
         const response:IResponse = addProductUseCase.execute(request);
         
         expect(response).toStrictEqual(request);
-
+        
+        //verifica repositorio para ver se inseriu
+        const productObjectsInRepo = await productRepo.getProducts({})
+        expect(productObjectsInRepo[0].id.getId()).toBe(uuid);
+        
     });
 });
