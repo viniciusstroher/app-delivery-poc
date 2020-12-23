@@ -1,5 +1,4 @@
-import { IDomainEvent } from "@domain/interfaces/IDomainEvent";
-import { IIdValueObject } from "@domain/interfaces/value-objects/IValueObject";
+import { IIdValueObject } from "@domain/interfaces/value-objects/IIdValueObject";
 import { ValueObject } from "@domain/value-objects/ValueObject";
 
 export class IdValueObject extends ValueObject implements IIdValueObject{

@@ -20,7 +20,7 @@ describe('Testing Add Product usecase Class', () => {
 
         const productRepo:IProductRepository = new ProductInMemory();
         const addProductUseCase:AddProductUseCase = new AddProductUseCase(productRepo);
-        const response:IResponse = addProductUseCase.execute(request);
+        const response:IResponse = await addProductUseCase.execute(request);
         
         expect(response).toStrictEqual(request);
         

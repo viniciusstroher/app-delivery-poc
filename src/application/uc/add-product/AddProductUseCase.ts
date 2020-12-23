@@ -10,9 +10,16 @@ export class AddProductUseCase implements IUseCase{
         this.productRepository = productRepository;
     }
 
-    execute (request?: ProductDTO) : IResponse {
+    async execute (request?: ProductDTO) : Promise<IResponse> {
         const newProduct:Product = ProductMapper.toDomain(request);
+        
+        if(newProduct && await this.productRepository.exists(newProduct)){
+            throw new ProductAlreadyExistsError;
+        }
+
         this.productRepository.save(newProduct);
         return ProductMapper.toDTO(newProduct);
     }
 }
+
+export class ProductAlreadyExistsError extends Error {}

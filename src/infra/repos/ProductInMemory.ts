@@ -7,6 +7,12 @@ export class ProductInMemory implements IProductRepository{
         this.products.push(product);
     }
 
+    async exists(product: any): Promise<boolean>{
+        // console.log('prod',product.id.getId())
+        return this.products.
+                filter(product => product.id.getId() === product.id.getId()).length > 0
+    }
+
     async update(id:string, product:any){
         this.products = this.products.map((productToAlter) => {
             if(product.id === id){

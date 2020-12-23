@@ -2,7 +2,7 @@ import { IDomainEvent } from "../interfaces/IDomainEvent";
 import { IEntity } from "../interfaces/entities/IEntity";
 import { IIdValueObject } from "@domain/interfaces/value-objects/IIdValueObject";
 
-export class Entity implements Entity{
+export class Entity implements IEntity{
     id: IIdValueObject | null;
     domainEvents: IDomainEvent[] = [];
 
