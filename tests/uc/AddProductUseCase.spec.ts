@@ -1,5 +1,5 @@
 import { UuidGenerator } from "@infra/utils/UuidGenerator"
-import { AddProductUseCase} from "@application/uc/add-product/AddProductUseCase";
+import { AddProductUseCase, ProductAlreadyExistsError} from "@application/uc/add-product/AddProductUseCase";
 import { IResponse } from "@application/interfaces/IUseCase";
 import { IProductRepository } from "@infra/interfaces/IProductRepository";
 import { ProductInMemory } from "@infra/repos/ProductInMemory";
@@ -45,6 +45,6 @@ describe('Testing Add Product usecase Class', () => {
         
         expect(response).toStrictEqual(request);
         //error se tentar cadastrar um novo product
-        expect(async () =>await addProductUseCase.execute(request)).toThrow();
+        expect(async () => await addProductUseCase.execute(request)).rejects.toThrow(ProductAlreadyExistsError);
     });
 });
