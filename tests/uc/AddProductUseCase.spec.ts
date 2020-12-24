@@ -29,4 +29,22 @@ describe('Testing Add Product usecase Class', () => {
         expect(productObjectsInRepo[0].id.getId()).toBe(uuid);
         
     });
+
+    test('should throw exists if create exists product', async () => {
+        const request:ProductDTO = {
+            id: uuid,
+            sku: "123910391",
+            name: "Papel",
+            description: "Papel para multiplas finalidades",
+            price: 3.59
+        }
+
+        const productRepo:IProductRepository = new ProductInMemory();
+        const addProductUseCase:AddProductUseCase = new AddProductUseCase(productRepo);
+        const response:IResponse = await addProductUseCase.execute(request);
+        
+        expect(response).toStrictEqual(request);
+        //error se tentar cadastrar um novo product
+        expect(async () =>await addProductUseCase.execute(request)).toThrow();
+    });
 });

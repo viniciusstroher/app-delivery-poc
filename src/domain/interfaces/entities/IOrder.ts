@@ -1,7 +1,8 @@
 import {IProduct} from "@domain/interfaces/entities/IProduct"
 import {IOrderStatus} from "@domain/interfaces/value-objects/IOrderStatus"
+import { IEntity } from "./IEntity"
 
-export interface IOrder{
+export interface IOrder extends IEntity{
   products:IProduct[];
   status:IOrderStatus;
   
