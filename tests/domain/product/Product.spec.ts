@@ -1,9 +1,12 @@
 
 import { ProductId } from "@domain/product/ProductId"
-import { EmptyProductNameError, EmptySkuError, Product } from "@domain/product/Product";
-import { uuidGenereted } from "@tests/uuidGeneratedFactory";
+import { EmptyProductNameError, EmptySkuError, Product } from "@domain/product/Product"
+import { uuidGenerated } from "@application/uuidGeneratedFactory"
+import { CategoryId } from "@domain/product/CategoryId"
+import { newCategoryId } from "@tests/newIdValueObjectFactory"
 
-const uuid:string = uuidGenereted();
+const uuid:string = uuidGenerated();
+const categoryId:CategoryId = newCategoryId();
 
 describe('Testing Product Entity Class', () => {
     test('should create instantiate Product entity', () => {
@@ -12,7 +15,7 @@ describe('Testing Product Entity Class', () => {
         const name = "Papel";
         const description = "Papel para multiplas finalidades";
         const price:number = 3.59
-        const newProduct:Product = new Product(productIdVo, sku, name, description, price)
+        const newProduct:Product = new Product(productIdVo, sku, name, description, price, categoryId)
         expect(newProduct).toBeInstanceOf(Product);
     });
 
@@ -23,7 +26,7 @@ describe('Testing Product Entity Class', () => {
             const name = "Papel";
             const description = "Papel para multiplas finalidades";
             const price:number = 3.59
-            const newProduct:Product = new Product(productIdVo, sku, name, description, price)
+            const newProduct:Product = new Product(productIdVo, sku, name, description, price, categoryId)
         }).toThrow();
     });
 
@@ -34,7 +37,7 @@ describe('Testing Product Entity Class', () => {
             const name = "Papel";
             const description = "Papel para multiplas finalidades";
             const price:number = 3.59
-            const newProduct:Product = new Product(productIdVo, sku, name, description, price)
+            const newProduct:Product = new Product(productIdVo, sku, name, description, price, categoryId)
         }).toThrow(EmptySkuError);
     });
 
@@ -45,7 +48,7 @@ describe('Testing Product Entity Class', () => {
             const name = "";
             const description = "Papel para multiplas finalidades";
             const price:number = 3.59
-            const newProduct:Product = new Product(productIdVo, sku, name, description, price)
+            const newProduct:Product = new Product(productIdVo, sku, name, description, price, categoryId)
         }).toThrow(EmptyProductNameError);
     });
 });

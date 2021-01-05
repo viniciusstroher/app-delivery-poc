@@ -1,9 +1,9 @@
 import { ProductId } from "@domain/product/ProductId"
-import { uuidGenereted } from "@tests/uuidGeneratedFactory";
+import { uuidGenerated } from "@application/uuidGeneratedFactory";
 
 describe('Testing ProductId Vo Class', () => {
     test('should create Uuid if ProductId is not null', () => {
-        const uuid:string = uuidGenereted()
+        const uuid:string = uuidGenerated()
         const productIdVo:ProductId = ProductId.create(uuid)
         expect(productIdVo.getId()).toBe(uuid)
     })

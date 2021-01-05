@@ -1,7 +1,8 @@
 import { Entity } from "@domain/common/Entity"
 import { CategoryId } from "@domain/product/CategoryId"
+import { ICategory } from "@domain/product/ICategory"
 
-export class Category extends Entity{
+export class Category extends Entity implements ICategory{
     name: string;
     description: string;
 
@@ -20,6 +21,7 @@ export class Category extends Entity{
             throw new EmptyCategoryDescriptionError;
         }
 
+        this.id = id; 
         this.name = name;
         this.description = description;
     }

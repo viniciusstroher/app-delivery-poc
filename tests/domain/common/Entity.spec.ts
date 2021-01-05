@@ -1,7 +1,7 @@
 import { IIdValueObject } from "@domain/common/IIdValueObject"
 import { Entity } from "@domain/common/Entity"
-import { UuidGenerator } from "@infra/utils/UuidGenerator"
 import { ProductId } from "@domain/product/ProductId"
+import { uuidGenerated } from "@application/uuidGeneratedFactory";
 
 class DummyEntityMock extends Entity{
     name:string;
@@ -13,13 +13,8 @@ class DummyEntityMock extends Entity{
     }
 }
 
-const uuidGenereted = () => {
-    const uuidGenerator = new UuidGenerator();
-    return uuidGenerator.generate();
-}
-
-const uuid1:string = uuidGenereted();
-const uuid2:string = uuidGenereted();
+const uuid1:string = uuidGenerated();
+const uuid2:string = uuidGenerated();
 
 describe('Testing Entity Class', () => {
     test('Diferents entities should return false', () => {

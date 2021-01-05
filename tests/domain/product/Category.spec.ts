@@ -1,8 +1,8 @@
 import { Category, EmptyCategoryDescriptionError, EmptyCategoryNameError } from "@domain/product/Category"
 import { CategoryId } from "@domain/product/CategoryId"
-import { uuidGenereted } from "@tests/uuidGeneratedFactory"
+import { uuidGenerated } from "@application/uuidGeneratedFactory"
 
-const uuid:string = uuidGenereted()
+const uuid:string = uuidGenerated()
 
 describe('Testing Category Entity Class', () => {
     test('should create instantiate Category entity', () => {

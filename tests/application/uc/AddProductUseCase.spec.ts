@@ -1,7 +1,7 @@
 import { UuidGenerator } from "@infra/utils/UuidGenerator"
 import { AddProductUseCase, ProductAlreadyExistsError} from "@application/uc/add-product/AddProductUseCase";
-import { IResponse } from "@application/interfaces/IUseCase";
-import { IProductRepository } from "@infra/interfaces/IProductRepository";
+import { IResponse } from "@application/IUseCase";
+import { IProductRepository } from "@domain/product/IProductRepository";
 import { ProductInMemory } from "@infra/repos/ProductInMemory";
 import { ProductDTO } from "@infra/mapper/ProductMapper";
 
@@ -15,7 +15,8 @@ describe('Testing Add Product usecase Class', () => {
             sku: "123910391",
             name: "Papel",
             description: "Papel para multiplas finalidades",
-            price: 3.59
+            price: 3.59,
+            category: "Papel"
         }
 
         const productRepo:IProductRepository = new ProductInMemory();
@@ -36,7 +37,8 @@ describe('Testing Add Product usecase Class', () => {
             sku: "123910391",
             name: "Papel",
             description: "Papel para multiplas finalidades",
-            price: 3.59
+            price: 3.59,
+            category: "Papel"
         }
 
         const productRepo:IProductRepository = new ProductInMemory();

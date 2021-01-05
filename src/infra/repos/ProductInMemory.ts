@@ -1,5 +1,4 @@
-import { IProductRepository } from "@infra/interfaces/IProductRepository";
-
+import { IProductRepository } from "@domain/product/IProductRepository"
 export class ProductInMemory implements IProductRepository{
     products:any[] = [];
     

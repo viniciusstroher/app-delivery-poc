@@ -1,6 +1,7 @@
-import { ProductId } from "@domain/product/ProductId";
-import { IProduct } from "@domain/product/IProduct";
-import { Entity } from "@domain/common/Entity";
+import { ProductId } from "@domain/product/ProductId"
+import { IProduct } from "@domain/product/IProduct"
+import { Entity } from "@domain/common/Entity"
+import { CategoryId } from "@domain/product/CategoryId"
 
 export class Product extends Entity implements IProduct{
     id: ProductId
@@ -8,8 +9,9 @@ export class Product extends Entity implements IProduct{
     name: string;
     description: string;
     price: number;
+    categoryId: CategoryId;
 
-    constructor(id: ProductId, sku: string, name: string, description: string, price: number){
+    constructor(id: ProductId, sku: string, name: string, description: string, price: number, categoryId: CategoryId){
         super();
         
         if(!id){
@@ -32,20 +34,18 @@ export class Product extends Entity implements IProduct{
             throw new PriceMinorThanOneError
         }
 
-        this.id = id;
-        this.sku = sku;
-        this.name = name;
-        this.description = description;
+        if(!categoryId){
+            throw new EmptyProductCategory
+        }
+
+        this.id = id
+        this.sku = sku
+        this.name = name
+        this.description = description
         this.price = price
+        this.categoryId = categoryId
     }
 
-    updatePrice(price:number){
-        if(price < 1.0){
-            throw new PriceMinorThanOneError
-        }
-        this.price = price;
-    }
-    
 }
 
 export class PriceMinorThanOneError extends Error{}
@@ -53,3 +53,4 @@ export class EmptySkuError extends Error{}
 export class EmptyProductNameError extends Error{}
 export class EmptyProductDescriptionError extends Error{}
 export class EmptyProductIdError extends Error{}
+export class EmptyProductCategory extends Error{}

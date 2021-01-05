@@ -1,6 +1,6 @@
 import { UuidGenerator } from "@infra/utils/UuidGenerator";
 
-export const uuidGenereted = () => {
+export const uuidGenerated = () => {
     const uuidGenerator = new UuidGenerator();
     return uuidGenerator.generate();
 }
