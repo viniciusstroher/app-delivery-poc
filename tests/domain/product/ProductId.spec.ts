@@ -1,5 +1,5 @@
 import { UuidGenerator } from "@infra/utils/UuidGenerator"
-import { ProductId } from "@domain/value-objects/ProductId"
+import { ProductId } from "@domain/product/ProductId"
 
 describe('Testing ProductId Vo Class', () => {
     test('should create Uuid if productId is not null', () => {

@@ -1,8 +1,7 @@
-import { IProductRepository } from "@infra/interfaces/IProductRepository";
-import { IResponse, IUseCase } from "@application/interfaces/IUseCase";
+import { IProductRepository } from "@infra/interfaces/IProductRepository"
+import { IResponse, IUseCase } from "@application/IUseCase"
 import {ProductDTO, ProductMapper} from "@infra/mapper/ProductMapper"
-import { Product } from "@domain/entities/Product";
-
+import { Product } from "@domain/product/Product"
 export class AddProductUseCase implements IUseCase{
     productRepository:IProductRepository;
     

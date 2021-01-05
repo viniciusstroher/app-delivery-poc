@@ -1,4 +1,4 @@
-import { IEntity } from "./IEntity";
+import { IEntity } from "@domain/common/IEntity";
 
 export interface IProduct extends IEntity{
   sku: string;

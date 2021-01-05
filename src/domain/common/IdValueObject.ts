@@ -1,8 +1,8 @@
-import { IIdValueObject } from "@domain/interfaces/value-objects/IIdValueObject";
-import { ValueObject } from "@domain/value-objects/ValueObject";
+import { IIdValueObject } from "@domain/common/IIdValueObject";
+import { ValueObject } from "@domain/common/ValueObject";
 
 export class IdValueObject extends ValueObject implements IIdValueObject{
-    id:string
+    id: string
     
     constructor(id:string){
         super();
@@ -14,7 +14,7 @@ export class IdValueObject extends ValueObject implements IIdValueObject{
         this.id = id;
     }   
 
-    getId():string{
+    getId(): string{
         return this.id;
     }
 }

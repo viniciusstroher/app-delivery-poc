@@ -1,7 +1,5 @@
-import { Product } from "@domain/entities/Product";
-import { ProductId } from "@domain/value-objects/ProductId";
-import { UuidGenerator } from "@infra/utils/UuidGenerator";
-
+import { Product } from "@domain/product/Product"
+import { ProductId } from "@domain/product/ProductId"
 export class ProductMapper {
   public static toDomain (raw: any): Product {
     const {id, sku, name, description, price } = raw;
@@ -33,9 +31,9 @@ export class ProductMapper {
 }
 
 export type ProductDTO = {
-    id:string, 
-    sku:string,  
-    name:string, 
-    description:string, 
-    price:number
+    id: string, 
+    sku: string,  
+    name: string, 
+    description: string, 
+    price: number
 }

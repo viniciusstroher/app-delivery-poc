@@ -1,7 +1,7 @@
-import { Product } from "@domain/entities/Product";
-import { ProductId } from "@domain/value-objects/ProductId";
-import { ProductInMemory } from "@infra/repos/ProductInMemory";
-import { UuidGenerator } from "@infra/utils/UuidGenerator";
+import { Product } from "@domain/product/Product"
+import { ProductId } from "@domain/product/ProductId"
+import { ProductInMemory } from "@infra/repos/ProductInMemory"
+import { UuidGenerator } from "@infra/utils/UuidGenerator"
 
 const uuidGenereted = () => {
     const uuidGenerator = new UuidGenerator();

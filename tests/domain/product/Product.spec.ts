@@ -1,6 +1,6 @@
 import { UuidGenerator } from "@infra/utils/UuidGenerator"
-import { ProductId } from "@domain/value-objects/ProductId"
-import { EmptyProductNameError, EmptySkuError, EmptySkyError, Product } from "@domain/entities/Product";
+import { ProductId } from "@domain/product/ProductId"
+import { EmptyProductNameError, EmptySkuError, Product } from "@domain/product/Product";
 
 const uuidGenereted = () => {
     const uuidGenerator = new UuidGenerator();

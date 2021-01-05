@@ -1,15 +1,18 @@
-import { IDomainEvent } from "../interfaces/IDomainEvent";
-import { IValueObject } from "../interfaces/value-objects/IValueObject";
+import { IDomainEvent } from "@domain/common/IDomainEvent";
+import { IEntity } from "@domain/common/IEntity";
+import { IIdValueObject } from "@domain/common/IIdValueObject";
 
-export class ValueObject implements IValueObject{
+export class Entity implements IEntity{
+    id: IIdValueObject | null;
     domainEvents: IDomainEvent[] = [];
 
     constructor(){
         this.domainEvents = [];
+        this.id = null;
     }
 
-    equals(compareValueObject: IValueObject): boolean{
-        if(JSON.stringify(compareValueObject) === JSON.stringify(this)){
+    equals(compareEntity: IEntity): boolean{
+        if(compareEntity?.id?.getId() === this.id?.getId()){
             return true;
         }
         return false;
@@ -28,9 +31,7 @@ export class ValueObject implements IValueObject{
             throw new DomainEventNotFoundError;
         return removedEvent[0];
     }
-
 }
 
-export class GetIdParentError extends Error {}
 export class DomainEventNotFoundError extends Error {}
 export class EmptyDomainEventError extends Error {}

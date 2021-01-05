@@ -1,16 +1,15 @@
-import { ProductId } from "@domain/value-objects/ProductId";
-import { IProduct } from "../interfaces/entities/IProduct";
-import { Entity } from "./Entity";
+import { ProductId } from "@domain/product/ProductId";
+import { IProduct } from "@domain/product/IProduct";
+import { Entity } from "@domain/common/Entity";
 
-// export default Product implements
 export class Product extends Entity implements IProduct{
-    id:ProductId
+    id: ProductId
     sku: string;
     name: string;
     description: string;
     price: number;
 
-    constructor(id:ProductId, sku:string, name:string, description:string, price:number){
+    constructor(id: ProductId, sku: string, name: string, description: string, price: number){
         super();
         
         if(!id){

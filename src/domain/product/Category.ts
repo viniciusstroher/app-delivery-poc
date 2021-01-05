@@ -1,6 +1,6 @@
 import { IDomainEvent } from "../interfaces/IDomainEvent";
-import { IEntity } from "../interfaces/entities/IEntity";
-import { Entity } from "./Entity";
+import { IEntity } from "../common/IEntity";
+import { Entity } from "../common/Entity";
 import { Product } from "./Product";
 
 export class Category extends Entity{

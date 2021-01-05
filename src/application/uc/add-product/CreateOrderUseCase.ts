@@ -1,11 +1,11 @@
-import { IProductRepository } from "@infra/interfaces/IProductRepository";
-import { IRequest, IResponse, IUseCase } from "@application/interfaces/IUseCase";
-import { IOrder } from "@domain/interfaces/entities/IOrder";
-import { IOrderRepository } from "@infra/interfaces/IOrderRepository";
-import { ProductId } from "@domain/value-objects/ProductId";
+import { IProductRepository } from "@infra/interfaces/IProductRepository"
+import { IRequest, IResponse, IUseCase } from "@application/IUseCase"
+import { IOrder } from "@domain/interfaces/entities/IOrder"
+import { IOrderRepository } from "@infra/interfaces/IOrderRepository"
+import { ProductId } from "@domain/product/ProductId"
 
 export type ProductLine = {
-    productRef:ProductId;
+    productRef: ProductId;
     quantity: number;
 }
 

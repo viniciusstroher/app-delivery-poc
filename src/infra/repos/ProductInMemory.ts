@@ -13,20 +13,20 @@ export class ProductInMemory implements IProductRepository{
                 filter(product => product.id.getId() === product.id.getId()).length > 0
     }
 
-    async update(id:string, product:any){
+    async update(product: any){
         this.products = this.products.map((productToAlter) => {
-            if(product.id === id){
-                return productToAlter;
+            if(product.id === productToAlter.id){
+                return {...productToAlter, product};
             }
             return product;
         })
     }
 
-    async getProducts(where:{}):Promise<any[]>{
+    async getProducts(where: {}):Promise<any[]>{
         return this.products;
     }
 
-    async getProductById(id:string):Promise<any>{
+    async getProductById(id: string):Promise<any>{
         return this.products.filter((product) => product.id === id)
     }
 }

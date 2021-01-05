@@ -1,5 +1,3 @@
-import { IDomainEvent } from "../../domain/interfaces/IDomainEvent";
-
 export interface IUseCase{
   execute (request?: IRequest) : Promise<IResponse> | IResponse;
 }

@@ -1,12 +1,12 @@
-import { IIdValueObject } from "@domain/interfaces/value-objects/IIdValueObject";
-import { Entity } from "@domain/entities/Entity";
-import { UuidGenerator } from "@infra/utils/UuidGenerator";
-import { ProductId } from "@domain/value-objects/ProductId";
+import { IIdValueObject } from "@domain/common/IIdValueObject"
+import { Entity } from "@domain/common/Entity"
+import { UuidGenerator } from "@infra/utils/UuidGenerator"
+import { ProductId } from "@domain/product/ProductId"
 
 class DummyEntityMock extends Entity{
     name:string;
 
-    constructor(id:IIdValueObject, name:string){
+    constructor(id: IIdValueObject, name: string){
         super();
         this.id = id;
         this.name = name;
