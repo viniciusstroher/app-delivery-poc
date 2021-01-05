@@ -1,11 +1,7 @@
-import { UuidGenerator } from "@infra/utils/UuidGenerator"
+
 import { ProductId } from "@domain/product/ProductId"
 import { EmptyProductNameError, EmptySkuError, Product } from "@domain/product/Product";
-
-const uuidGenereted = () => {
-    const uuidGenerator = new UuidGenerator();
-    return uuidGenerator.generate();
-}
+import { uuidGenereted } from "@tests/uuidGeneratedFactory";
 
 const uuid:string = uuidGenereted();
 
@@ -17,7 +13,6 @@ describe('Testing Product Entity Class', () => {
         const description = "Papel para multiplas finalidades";
         const price:number = 3.59
         const newProduct:Product = new Product(productIdVo, sku, name, description, price)
-        
         expect(newProduct).toBeInstanceOf(Product);
     });
 

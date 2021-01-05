@@ -1,39 +1,31 @@
-import { IDomainEvent } from "../interfaces/IDomainEvent";
-import { IEntity } from "../common/IEntity";
-import { Entity } from "../common/Entity";
-import { Product } from "./Product";
+import { Entity } from "@domain/common/Entity"
+import { CategoryId } from "@domain/product/CategoryId"
 
 export class Category extends Entity{
     name: string;
-    products:Product[];
+    description: string;
 
-    constructor(){
+    constructor(id: CategoryId, name: string, description: string){
         super();
         
+        if(!id){
+            throw new EmptyCategoryIdError
+        }
+
         if(!name){
             throw new EmptyCategoryNameError;
         }
         
-        this.name = "";
-        this.products = [];
-    }
-
-    setName(name:string){
-        if(!name){
-            throw new EmptyCategoryNameError;
+        if(!description){
+            throw new EmptyCategoryDescriptionError;
         }
 
         this.name = name;
+        this.description = description;
     }
 
-    addProduct(product:Product){
-        if(!product){
-            throw new EmptyProductError;
-        }
-
-        this.products.push(product)
-    }
 }
 
 export class EmptyCategoryNameError extends Error{}
-export class EmptyProductError extends Error{}
+export class EmptyCategoryDescriptionError extends Error{}
+export class EmptyCategoryIdError extends Error{}
