@@ -4,9 +4,14 @@ import { IResponse } from "@application/IUseCase";
 import { IProductRepository } from "@domain/product/IProductRepository";
 import { ProductInMemory } from "@infra/repos/ProductInMemory";
 import { ProductDTO } from "@infra/mapper/ProductMapper";
+import { ICategoryRepository } from "@domain/product/ICategoryRepository";
+import { CategoryInMemory } from "@infra/repos/CategoryInMemory";
 
 const uuidGenerator = new UuidGenerator();
 const uuid:string = uuidGenerator.generate();
+const productRepo:IProductRepository = new ProductInMemory();
+const categoryRepo:ICategoryRepository = new CategoryInMemory();
+const addProductUseCase:AddProductUseCase = new AddProductUseCase(productRepo, categoryRepo);
 
 describe('Testing Add Product usecase Class', () => {
     test('should create instantiate Product entity', async () => {
@@ -19,10 +24,7 @@ describe('Testing Add Product usecase Class', () => {
             category: "Papel"
         }
 
-        const productRepo:IProductRepository = new ProductInMemory();
-        const addProductUseCase:AddProductUseCase = new AddProductUseCase(productRepo);
         const response:IResponse = await addProductUseCase.execute(request);
-        
         expect(response).toStrictEqual(request);
         
         //verifica repositorio para ver se inseriu
@@ -41,10 +43,7 @@ describe('Testing Add Product usecase Class', () => {
             category: "Papel"
         }
 
-        const productRepo:IProductRepository = new ProductInMemory();
-        const addProductUseCase:AddProductUseCase = new AddProductUseCase(productRepo);
         const response:IResponse = await addProductUseCase.execute(request);
-        
         expect(response).toStrictEqual(request);
         //error se tentar cadastrar um novo product
         expect(async () => await addProductUseCase.execute(request)).rejects.toThrow(ProductAlreadyExistsError);

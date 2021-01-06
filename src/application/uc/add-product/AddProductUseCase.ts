@@ -1,10 +1,14 @@
-import { IProductRepository } from "@infra/interfaces/IProductRepository"
+import { IProductRepository } from "@domain/product/IProductRepository"
 import { IResponse, IUseCase } from "@application/IUseCase"
-import {ProductDTO, ProductMapper} from "@infra/mapper/ProductMapper"
+import { ProductMapper} from "@infra/mapper/ProductMapper"
 import { Product } from "@domain/product/Product"
-import { CategoryId } from "@domain/product/CategoryId";
-import { uuidGenerated } from "@application/uuidGeneratedFactory";
-import { ICategoryRepository } from "@domain/product/ICategoryRepository";
+import { CategoryId } from "@domain/product/CategoryId"
+import { uuidGenerated } from "@application/uuidGeneratedFactory"
+import { ICategoryRepository } from "@domain/product/ICategoryRepository"
+import { CategoryMapper } from "@infra/mapper/CategoryMapper"
+import { Category } from "@domain/product/Category"
+import { ProductId } from "@domain/product/ProductId"
+
 export class AddProductUseCase implements IUseCase{
     productRepository:IProductRepository
     categoryRepository:ICategoryRepository
@@ -14,19 +18,33 @@ export class AddProductUseCase implements IUseCase{
         this.categoryRepository = categoryRepository;
     }
 
-    async execute (request?: ProductDTO) : Promise<IResponse> {
+    //criar type de params para este caso
+    async execute (request?: any) : Promise<IResponse> {
         const categoryId:CategoryId = CategoryId.create(uuidGenerated());
-        const requestParsed = {...request, categoryId};
-        const newProduct:Product = ProductMapper.toDomain(requestParsed);
+        const categoryData = {id: categoryId, 
+                            name: request?.category};
+        const newCategory:Category = CategoryMapper.toDomain(categoryData);
+        
+        const productId:ProductId = ProductId.create(uuidGenerated());
+        const productData = {id: productId,
+                             sku: request.sku, 
+                             name: request.name, 
+                             description: request.description, 
+                             price: request.price, 
+                             categoryId}
+
+        const newProduct:Product = ProductMapper.toDomain(productData);
         // mudar exists talvez apenas para o ID
+        if(!this.categoryRepository.exists(newCategory)){
+            this.categoryRepository.save(CategoryMapper.toPersistence(newCategory));
+        }
+
         if(newProduct && await this.productRepository.exists(newProduct)){
             throw new ProductAlreadyExistsError;
         }
-        //salvar categoria antes
-        //antes de salvar usar 
-        // this.categoryRepository -> ProductMapper.toPersistence (revisar mapper)
-        this.productRepository.save(newPrduct);
-        return ProductMapper.toDTO(newProduct);
+
+        this.productRepository.save(ProductMapper.toPersistence(newProduct));
+        return this.productRepository.getProductById(productId.getId());
     }
 }
 
