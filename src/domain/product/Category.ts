@@ -1,8 +1,9 @@
 import { Entity } from "@domain/common/Entity"
+import { IAgreggateRoot } from "@domain/common/IAgreggateRoot";
 import { CategoryId } from "@domain/product/CategoryId"
 import { ICategory } from "@domain/product/ICategory"
 
-export class Category extends Entity implements ICategory{
+export class Category extends Entity implements ICategory, IAgreggateRoot{
     name: string;
     description: string;
 

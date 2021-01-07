@@ -2,8 +2,9 @@ import { ProductId } from "@domain/product/ProductId"
 import { IProduct } from "@domain/product/IProduct"
 import { Entity } from "@domain/common/Entity"
 import { CategoryId } from "@domain/product/CategoryId"
+import { IAgreggateRoot } from "@domain/common/IAgreggateRoot"
 
-export class Product extends Entity implements IProduct{
+export class Product extends Entity implements IProduct, IAgreggateRoot{
     id: ProductId
     sku: string;
     name: string;
