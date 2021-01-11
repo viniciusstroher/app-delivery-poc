@@ -27,6 +27,7 @@ export class CategoryInMemory implements ICategoryRepository{
     }
 
     async getCategoryById(id: string):Promise<any>{
-        return this.categories.filter((category) => category.id === id)
+        const fetch = this.categories.filter((category) => category.id.getId() === id);
+        return fetch ? fetch[0] : null;
     }
 }

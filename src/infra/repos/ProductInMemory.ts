@@ -7,9 +7,8 @@ export class ProductInMemory implements IProductRepository{
     }
 
     async exists(product: any): Promise<boolean>{
-        // console.log('prod',product.id.getId())
         return this.products.
-                filter(product => product.id.getId() === product.id.getId()).length > 0
+                filter(productFilter => productFilter.id.getId() === product.id.getId()).length > 0
     }
 
     async update(product: any){
@@ -26,6 +25,7 @@ export class ProductInMemory implements IProductRepository{
     }
 
     async getProductById(id: string):Promise<any>{
-        return this.products.filter((product) => product.id === id)
+        const fetch = this.products.filter((product) => product.id.getId() === id);
+        return fetch ? fetch[0] : null
     }
 }

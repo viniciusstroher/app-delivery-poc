@@ -24,7 +24,7 @@ export class AddProductUseCase implements IUseCase{
     async execute (request: AddProductUseCaseParam) : Promise<IResponse> {
         const categoryId:CategoryId = CategoryId.create(request.categoryId);
         const id:ProductId = ProductId.create(uuidGenerated());
-        const newProduct:Product = ProductMapper.toDomain({request, categoryId, id});
+        const newProduct:Product = ProductMapper.toDomain({...request, categoryId, id});
         
         if(newProduct && await this.productRepository.exists(newProduct)){
             throw new ProductAlreadyExistsError;

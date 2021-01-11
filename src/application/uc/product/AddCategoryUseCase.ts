@@ -20,16 +20,16 @@ export class AddCategoryUseCase implements IUseCase{
 
     //criar type de params para este caso
     async execute (request: AddCategoryUseCaseParam) : Promise<IResponse> {
-        const categoryId:CategoryId = CategoryId.create(uuidGenerated());
-        const newCategory:Category = CategoryMapper.toDomain({request, categoryId});
+        const id:CategoryId = CategoryId.create(uuidGenerated());
+        const newCategory:Category = CategoryMapper.toDomain({...request, id});
         
         // mudar exists talvez apenas para o ID
-        if(newCategory && this.categoryRepository.exists(newCategory)){
+        if(newCategory && await this.categoryRepository.exists(newCategory)){
             throw new CategoryAlreadyExistsError;
         }
 
         this.categoryRepository.save(newCategory);
-        return this.categoryRepository.getCategoryById(categoryId.getId());
+        return this.categoryRepository.getCategoryById(id.getId());
     }
 }
 

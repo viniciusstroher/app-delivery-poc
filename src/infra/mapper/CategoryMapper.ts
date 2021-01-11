@@ -5,7 +5,7 @@ export class CategoryMapper {
   
   public static toDomain (category: any): Category {
     const {id, name, description} = category;
-    return new Category(CategoryId.create(id), name, description);
+    return new Category(id, name, description);
   }
 
   // public static toDTO (category: any): CategoryDTO {
