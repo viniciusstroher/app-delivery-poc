@@ -1,5 +1,5 @@
 export interface IUseCase{
-  execute (request?: IRequest) : Promise<IResponse> | IResponse;
+  execute (request?: IRequest) : Promise<IResponse> | IResponse | void;
 }
 
 //usado para interface base de Request de UC

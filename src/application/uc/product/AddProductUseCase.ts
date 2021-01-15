@@ -13,6 +13,7 @@ export type AddProductUseCaseParam = {
     price: number, 
     categoryId:string
 }
+
 export class AddProductUseCase implements IUseCase{
     productRepository:IProductRepository
 
@@ -21,7 +22,7 @@ export class AddProductUseCase implements IUseCase{
     }
 
     //criar type de params para este caso
-    async execute (request: AddProductUseCaseParam) : Promise<IResponse> {
+    async execute (request: AddProductUseCaseParam) : void {
         const categoryId:CategoryId = CategoryId.create(request.categoryId);
         const id:ProductId = ProductId.create(uuidGenerated());
         const newProduct:Product = ProductMapper.toDomain({...request, categoryId, id});
@@ -31,7 +32,6 @@ export class AddProductUseCase implements IUseCase{
         }
 
         this.productRepository.save(newProduct);
-        return this.productRepository.getProductById(id.getId());
     }
 }
 
