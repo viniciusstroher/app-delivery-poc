@@ -9,6 +9,7 @@ export class Product extends Entity implements IProduct, IAgreggateRoot{
     name: string;
     description: string;
     price: number;
+    //trocar por vo e criar
     categoryId: CategoryId;
 
     constructor(id: ProductId, sku: string, name: string, description: string, price: number, categoryId: CategoryId){

@@ -1,6 +1,7 @@
 import { IRepository } from "@domain/common/IRepository";
+import { Product } from "@domain/product/Product";
 
 export interface IProductRepository extends IRepository{
-    getProducts(where: {}): Promise<any[]> | any[];
-    getProductById(id: string): Promise<any[]> | any[];
+    getProducts(where: {}): Promise<Product[]> | Product[];
+    getProductById(id: string): Promise<Product> | Product;
 }

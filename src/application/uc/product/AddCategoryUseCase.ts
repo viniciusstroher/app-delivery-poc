@@ -5,7 +5,7 @@ import { ICategoryRepository } from "@domain/product/ICategoryRepository"
 import { CategoryMapper } from "@infra/mapper/CategoryMapper"
 import { Category } from "@domain/product/Category"
 
-export type AddCategoryUseCaseParam = {
+export interface AddCategoryUseCaseParam extends IResponse {
     name:string,
     description:string,
 }
@@ -19,7 +19,7 @@ export class AddCategoryUseCase implements IUseCase{
     }
 
     //criar type de params para este caso
-    async execute (request: AddCategoryUseCaseParam) : Promise<IResponse> {
+    async execute (request: AddCategoryUseCaseParam) : Promise<void> {
         const id:CategoryId = CategoryId.create(uuidGenerated());
         const newCategory:Category = CategoryMapper.toDomain({...request, id});
         
@@ -29,7 +29,6 @@ export class AddCategoryUseCase implements IUseCase{
         }
 
         this.categoryRepository.save(newCategory);
-        return this.categoryRepository.getCategoryById(id.getId());
     }
 }
 

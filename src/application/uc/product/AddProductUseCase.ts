@@ -1,12 +1,12 @@
 import { IProductRepository } from "@domain/product/IProductRepository"
-import { IResponse, IUseCase } from "@application/IUseCase"
+import { IRequest, IResponse, IUseCase } from "@application/IUseCase"
 import { ProductMapper} from "@infra/mapper/ProductMapper"
 import { Product } from "@domain/product/Product"
 import { CategoryId } from "@domain/product/CategoryId"
 import { uuidGenerated } from "@application/uuidGeneratedFactory"
 import { ProductId } from "@domain/product/ProductId"
 
-export type AddProductUseCaseParam = {
+export interface AddProductUseCaseParam extends IRequest {
     name:string,
     description: string, 
     sku: string, 
@@ -22,11 +22,8 @@ export class AddProductUseCase implements IUseCase{
     }
 
     //criar type de params para este caso
-    async execute (request: AddProductUseCaseParam) : void {
+    async execute (request: AddProductUseCaseParam) : Promise<void> {
         const categoryId:CategoryId = CategoryId.create(request.categoryId);
-        //tocrocar categoryId por vo de lookup categoryVo {id,name} criar fabrica para gerar.
-        //no get deixar normal pois ele ia carregar.
-        
         const id:ProductId = ProductId.create(uuidGenerated());
         const newProduct:Product = ProductMapper.toDomain({...request, categoryId, id});
         
