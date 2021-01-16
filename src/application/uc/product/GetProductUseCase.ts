@@ -34,7 +34,15 @@ export class GetProductUseCase implements IUseCase{
     //criar type de params para este caso
     async execute (request: GetProductUseCaseParam) : Promise<GetProducUseCaseResponse> {
         const product:Product = await this.productRepository.getProductById(request.productId);
-        const category:Category = await this.categoryRepository.getCategoryById(request.productId);
+
+        if(!product){
+            throw new ProductNotExistsError
+        }
+        
+        const category:Category = await this.categoryRepository.getCategoryById(product.categoryId.id);
+        if(!category){
+            throw new CategoryNotExistsError
+        }
 
         const productWithCategory:GetProducUseCaseResponse = 
         {
@@ -51,4 +59,6 @@ export class GetProductUseCase implements IUseCase{
     }
 }
 
-export class ProductAlreadyExistsError extends Error {}
+export class ProductNotExistsError extends Error {}
+export class CategoryNotExistsError extends Error {}
+

@@ -30,7 +30,7 @@ export class AddProductUseCase implements IUseCase{
         if(newProduct && await this.productRepository.exists(newProduct)){
             throw new ProductAlreadyExistsError;
         }
-
+        
         this.productRepository.save(newProduct);
     }
 }
