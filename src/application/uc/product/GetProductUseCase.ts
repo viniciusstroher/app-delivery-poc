@@ -1,13 +1,8 @@
 import { IProductRepository } from "@domain/product/IProductRepository"
 import { IRequest, IResponse, IUseCase } from "@application/IUseCase"
-import { ProductMapper} from "@infra/mapper/ProductMapper"
 import { Product } from "@domain/product/Product"
-import { CategoryId } from "@domain/product/CategoryId"
-import { uuidGenerated } from "@application/uuidGeneratedFactory"
-import { ProductId } from "@domain/product/ProductId"
 import { Category } from "@domain/product/Category"
 import { ICategoryRepository } from "@domain/product/ICategoryRepository"
-import { ICategory } from "@domain/product/ICategory"
 
 export interface GetProductUseCaseParam extends IRequest {
     productId:string
@@ -44,7 +39,7 @@ export class GetProductUseCase implements IUseCase{
             throw new CategoryNotExistsError
         }
 
-        const productWithCategory:GetProducUseCaseResponse = 
+        const productWithCategoryResponse:GetProducUseCaseResponse = 
         {
             id:product.id.getId(),
             name:product.name,
@@ -55,7 +50,7 @@ export class GetProductUseCase implements IUseCase{
             }
         }
         
-        return productWithCategory
+        return productWithCategoryResponse
     }
 }
 
