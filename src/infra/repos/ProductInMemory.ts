@@ -4,16 +4,16 @@ import { Product } from "@domain/product/Product";
 export class ProductInMemory implements IProductRepository{
     products:any[] = [];
     
-    async save(product:any){
+    async save(product: Product){
         this.products.push(product);
     }
 
-    async exists(product: any): Promise<boolean>{
+    async exists(product: Product): Promise<boolean>{
         return this.products.
                 filter(productFilter => productFilter.id.getId() === product.id.getId()).length > 0
     }
 
-    async update(product: any){
+    async update(product: Product){
         this.products = this.products.map((productToAlter) => {
             if(product.id === productToAlter.id){
                 return {...productToAlter, product};
@@ -22,7 +22,15 @@ export class ProductInMemory implements IProductRepository{
         })
     }
 
-    async getProducts(where: {}):Promise<any[]>{
+    async delete(product: Product){
+        this.products = this.products.filter((productToAlter) => {
+            if(product.id.getId() !== productToAlter.id.getId()){
+                return productToAlter;
+            }
+        })
+    }
+
+    async getProducts(where: {}):Promise<Product[]>{
         //carrega categoria
         //VO
         //const category = {category: {id: uuidGenerated(), name: "Cat1"}}

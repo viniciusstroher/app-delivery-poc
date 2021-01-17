@@ -47,6 +47,7 @@ export class Product extends Entity implements IProduct, IAgreggateRoot{
         this.categoryId = categoryId
     }
 
+    setPrice = (price:number) => this.price = price 
 }
 
 export class PriceMinorThanOneError extends Error{}
