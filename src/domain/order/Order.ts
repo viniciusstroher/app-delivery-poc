@@ -7,8 +7,9 @@ export class Order extends Entity implements IOrder, IAgreggateRoot{
     type: OrderStatus;
     createOrderDate: Date;
     orderItems: IOrderItem[];
+    total:number;
 
-    constructor(id: OrderId, type: OrderStatus, createOrderDate: Date, orderItems:IOrderItem[]){
+    constructor(id: OrderId, type: OrderStatus, createOrderDate: Date, orderItems:IOrderItem[], total){
         super();
         
         if(!id){
@@ -27,27 +28,31 @@ export class Order extends Entity implements IOrder, IAgreggateRoot{
         this.type = type
         this.createOrderDate = createOrderDate
         this.orderItems = orderItems
+        this.total = total
     }
 
     
     addItem(item: IOrderItem): void {
-        throw new Error("Method not implemented.");
+        this.orderItems.push(item)
     }
 
     removeItem(item: IOrderItem): void {
-        throw new Error("Method not implemented.");
+        this.orderItems = this.orderItems.filter(orderItem => item.id!.getId() !== orderItem.id!.getId())
     }
 
     calculateTotal(): number {
-        throw new Error("Method not implemented.");
+        return this.orderItems.reduce((sum:number, orderItems:IOrderItem) => sum + orderItems.price * orderItems.quantity ,0)
     }
 
-    setTotal(): void {
-        throw new Error("Method not implemented.");
+    setTotal(total:number): void {
+        this.total = total
     }
 
     changeStatusToAcceptedPayment(): void {
-        throw new Error("Method not implemented.");
+        if(this.type == OrderStatus.Pending)
+            throw new OrderMustIsPendingError
+        
+        this.type = OrderStatus.AcceptedPayment
     }
 
     changeStatusToShipping(): void {
@@ -57,7 +62,7 @@ export class Order extends Entity implements IOrder, IAgreggateRoot{
     changeStatusToComplete(): void {
         throw new Error("Method not implemented.");
     }
-    
+
     changeStatusToCancealled(): void {
         throw new Error("Method not implemented.");
     }
@@ -67,3 +72,4 @@ export class Order extends Entity implements IOrder, IAgreggateRoot{
 export class EmptyOrderIdError extends Error{}
 export class EmptyOrderTypeError extends Error{}
 export class EmptyOrderDateError extends Error{}
+export class OrderMustIsPendingError extends Error{}

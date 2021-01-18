@@ -10,21 +10,25 @@ export enum OrderStatus {
 }
 
 export interface IOrderItem extends IEntity{
-  order: number,
-  productId: ProductId,
+  order: number
+  productId: ProductId
   quantity: number
+  price: number
+  changeOrder(order:number):void
 }
 
 export interface IOrder extends IEntity{
-  type: OrderStatus,
-  createOrderDate: Date,
+  type: OrderStatus
+  createOrderDate: Date
   orderItems: IOrderItem[]
+  total:number
 
   addItem(item:IOrderItem):void
   removeItem(item:IOrderItem):void
   calculateTotal():number
 
-  setTotal():void
+  setTotal(total:number):void
+  setOrder(item:IOrderItem, order:number):void
 
   changeStatusToAcceptedPayment(): void
   changeStatusToShipping(): void
