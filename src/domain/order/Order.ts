@@ -1,6 +1,9 @@
 import { Entity } from "@domain/common/Entity"
 import { IAgreggateRoot } from "@domain/common/IAgreggateRoot";
+import { ValueObject } from "@domain/common/ValueObject";
 import { IOrder, IOrderItem, OrderStatus } from "./IOrder";
+import { IPaymentMethod } from "./IPaymentMethod";
+import { IShippingMethod } from "./IShippingMethod";
 import { OrderId } from "./OrderId";
 
 export class Order extends Entity implements IOrder, IAgreggateRoot{
@@ -9,8 +12,11 @@ export class Order extends Entity implements IOrder, IAgreggateRoot{
     createOrderDate: Date;
     orderItems: IOrderItem[];
     total:number;
+    paymentMethod:IPaymentMethod | null;
+    shippingMethod: IShippingMethod | null;
+
     //fazer bc de invoice e bc de shipping
-    constructor(id: OrderId, type: OrderStatus, createOrderDate: Date, orderItems:IOrderItem[]){
+    constructor(id: OrderId, type: OrderStatus, createOrderDate: Date, orderItems:IOrderItem[], paymentMethod:PaymentMethod, shippingMethod:ShippingMethod){
         super();
         
         if(!id){
@@ -30,14 +36,27 @@ export class Order extends Entity implements IOrder, IAgreggateRoot{
         this.createOrderDate = createOrderDate
         this.orderItems = orderItems
         this.total = this.calculateTotal()
-
+        
+        this.paymentMethod = null
+        if(paymentMethod){
+            this.paymentMethod = paymentMethod
+        }
+        
+        this.shippingMethod = null
+        if(shippingMethod){
+            this.shippingMethod = shippingMethod
+        }
     }
 
     addItem(item: IOrderItem): void {
+        if(this.type !== OrderStatus.Pending)
+            throw OrderChangeOrderAfterPendingError
         this.orderItems.push(item)
     }
 
     removeItem(item: IOrderItem): void {
+        if(this.type !== OrderStatus.Pending)
+            throw OrderChangeOrderAfterPendingError
         this.orderItems = this.orderItems.filter(orderItem => item.id!.getId() !== orderItem.id!.getId())
     }
 
@@ -82,3 +101,5 @@ export class EmptyOrderDateError extends Error{}
 export class OrderMustIsPendingError extends Error{}
 export class OrderMustIsAcceptedPaymentError extends Error{}
 export class OrderMustIsShippingPaymentError extends Error{}
+export class OrderChangeOrderAfterPendingError extends Error{}
+
