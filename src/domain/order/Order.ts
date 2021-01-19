@@ -4,12 +4,13 @@ import { IOrder, IOrderItem, OrderStatus } from "./IOrder";
 import { OrderId } from "./OrderId";
 
 export class Order extends Entity implements IOrder, IAgreggateRoot{
+    id: OrderId
     type: OrderStatus;
     createOrderDate: Date;
     orderItems: IOrderItem[];
     total:number;
-
-    constructor(id: OrderId, type: OrderStatus, createOrderDate: Date, orderItems:IOrderItem[], total){
+    //fazer bc de invoice e bc de shipping
+    constructor(id: OrderId, type: OrderStatus, createOrderDate: Date, orderItems:IOrderItem[]){
         super();
         
         if(!id){
@@ -28,10 +29,10 @@ export class Order extends Entity implements IOrder, IAgreggateRoot{
         this.type = type
         this.createOrderDate = createOrderDate
         this.orderItems = orderItems
-        this.total = total
+        this.total = this.calculateTotal()
+
     }
 
-    
     addItem(item: IOrderItem): void {
         this.orderItems.push(item)
     }
@@ -40,12 +41,12 @@ export class Order extends Entity implements IOrder, IAgreggateRoot{
         this.orderItems = this.orderItems.filter(orderItem => item.id!.getId() !== orderItem.id!.getId())
     }
 
-    calculateTotal(): number {
-        return this.orderItems.reduce((sum:number, orderItems:IOrderItem) => sum + orderItems.price * orderItems.quantity ,0)
+    setOrderItemOrder(item: IOrderItem, order:number): void {
+        this.orderItems = this.orderItems.splice(order, 0, item)
     }
 
-    setTotal(total:number): void {
-        this.total = total
+    calculateTotal(): number {
+        return this.orderItems.reduce((sum:number, orderItems:IOrderItem) => sum + orderItems.price * orderItems.quantity ,0)
     }
 
     changeStatusToAcceptedPayment(): void {
@@ -56,15 +57,21 @@ export class Order extends Entity implements IOrder, IAgreggateRoot{
     }
 
     changeStatusToShipping(): void {
-        throw new Error("Method not implemented.");
+        if(this.type == OrderStatus.AcceptedPayment)
+            throw new OrderMustIsAcceptedPaymentError
+        
+        this.type = OrderStatus.Shipping
     }
 
     changeStatusToComplete(): void {
-        throw new Error("Method not implemented.");
+        if(this.type == OrderStatus.Shipping)
+            throw new OrderMustIsShippingPaymentError
+        
+        this.type = OrderStatus.Complete
     }
 
     changeStatusToCancealled(): void {
-        throw new Error("Method not implemented.");
+        this.type = OrderStatus.Cancelled
     }
 
 }
@@ -73,3 +80,5 @@ export class EmptyOrderIdError extends Error{}
 export class EmptyOrderTypeError extends Error{}
 export class EmptyOrderDateError extends Error{}
 export class OrderMustIsPendingError extends Error{}
+export class OrderMustIsAcceptedPaymentError extends Error{}
+export class OrderMustIsShippingPaymentError extends Error{}

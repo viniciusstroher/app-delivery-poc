@@ -21,14 +21,13 @@ export interface IOrder extends IEntity{
   type: OrderStatus
   createOrderDate: Date
   orderItems: IOrderItem[]
-  total:number
-
+  total:number 
+  
   addItem(item:IOrderItem):void
   removeItem(item:IOrderItem):void
   calculateTotal():number
 
-  setTotal(total:number):void
-  setOrder(item:IOrderItem, order:number):void
+  setOrderItemOrder(item:IOrderItem, order:number):void
 
   changeStatusToAcceptedPayment(): void
   changeStatusToShipping(): void
