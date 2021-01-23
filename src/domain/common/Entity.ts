@@ -2,7 +2,7 @@ import { IDomainEvent } from "@domain/common/IDomainEvent";
 import { IEntity } from "@domain/common/IEntity";
 import { IIdValueObject } from "@domain/common/IIdValueObject";
 
-export class Entity implements IEntity{
+export abstract class Entity implements IEntity{
     id: IIdValueObject | null;
     domainEvents: IDomainEvent[] = [];
 
